@@ -1,0 +1,25 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Bamazon is a node-line application that takes orders from customers and depletes it from the inventory stored in the database",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arohl2015/Bamazon.git"
+  },
+  "keywords": [],
+  "author": "April Rohl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arohl2015/Bamazon/issues"
+  },
+  "homepage": "https://github.com/arohl2015/Bamazon#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1"
+  }
+}

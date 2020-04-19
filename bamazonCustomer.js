@@ -3,6 +3,8 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 var table = require("console.table");
 var color = require("cli-color");
+// my password for mysql db connection - hidden
+var pw = require("./pw.js"); 
 
 // creating the connection to mysql
 var connection = connection.mysql({
@@ -10,7 +12,7 @@ var connection = connection.mysql({
     host: "local host",
     port: 3306,
     user: "root",
-    password: ""
+    password: pw.pw,
     database: "bamazon"
 
 });

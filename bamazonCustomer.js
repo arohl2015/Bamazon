@@ -41,6 +41,7 @@ function start() {
             showProducts();
             // if user wants to leave, run exit function
         } else if (action.action === "Leave the store") {
+           connection.end();
             exit();
         }
     });
@@ -55,9 +56,11 @@ function showProducts() {
         // Then prompt the customer for their choice of product, pass all the products to function promptCustomer
         promptCustomer();
     });
-
+};
+    // The app should then prompt users with two messages.
+    // The first should ask them the ID of the product they would like to buy.
+    // The second message should ask how many units of the product they would like to buy.
     function promptCustomer() {
-        // ask customer what they'd like to buy and how many
         inquirer.prompt([
             {
                 name: "item_id",
@@ -71,7 +74,7 @@ function showProducts() {
                 }
             },
             {
-                name: "userOrder",
+                name: "units",
                 message: "Please enter the quantity you would like to purchase:",
                 type: "input",
                 validate: function (value) {
@@ -84,16 +87,33 @@ function showProducts() {
             // check if your store has enough of the product to meet the customer's request.
             //If not, the app should log a phrase like `Insufficient quantity!`,and then prevent the order from going through.
         ]).then(function (transact) {
+            connection.query("SELECT stock_quantity, price FROM products where item_id=?", transact.item_id, function (error, results) {
+                if (error) throw error;
+                var quantity = results[0].stock_quantity;
+                var price = results[0].price;
+                console.log(quantity, price);
+                if (quantity > transact.units) {
+                    connection.query("UPDATE products SET stock_quantity = ? where item_id= ?", [quantity - transact.units, transact.item_id], function (error, review) {
+                        if (error) throw error;
+                        // console.log(review);
+                        console.log ("Total Cost: ", price * transact.units);
+                        console.log ("You're order has been placed and you'll receive it in the next month!")
+                        start();
+                    })
+                } else {
+                    console.log("Insufficient quantity");
+                    start();                    
+                };
+
+
+                // if store has enough of the product, fulfill the customer's order.
+                // update the SQL database to reflect the remaining quantity.
+                // once the update goes through, show the customer the total cost of their purchase.
 
 
 
-            // if store has enough of the product, fulfill the customer's order.
-            // update the SQL database to reflect the remaining quantity.
-            // once the update goes through, show the customer the total cost of their purchase.
-         
+            })
 
-
-        }
-
-        )
-    }
+            
+        })
+    };

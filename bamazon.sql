@@ -20,11 +20,11 @@ SELECT * FROM products;
 -- Creates new rows containing data in all named columns --
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Lafeber's Nutriberries", "Pet Supplies", 26.99, 25),
-  ("Almond Butter", "Grocery", 8.24, 50),
+  ("Almond Butter", "Grocery", 8.24, 10),
   ("Chickpea Pasta", "Grocery", 3.25, 2),
   ("Espresso Pods", "Grocery", 42.99, 50),
-  ("Harry Potter Complete Film Collection Blu-Ray", "Movies and TV", 64.10, 30),
-  ("Disney Pixar Coco", "Movies and TV", 19.99, 35),
+  ("500 Piece Puzzle", "Games", 12.35, 20),
+  ("Sorry!", "Games", 17.95, 35),
   ("Harry Potter: The Illustrated Collection", "Books", 89.99, 20),
   ("Pride and Prejudice", "Books", 8.39, 200),
   ("Yoga Pants", "Clothing", 19.99, 100),

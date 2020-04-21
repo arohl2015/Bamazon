@@ -127,18 +127,20 @@ function promptCustomer() {
     })
 
     // function to ask if user would like to make another purchase
-    var newPurchase = function () {
-        inquirer.prompt({
-            name: "action",
+    var newPurchase = function() {
+        inquirer.prompt([
+          {  name: "action",
             type: "list",
             choices: ["Yes", "No"],
             message: (color.cyan("Would you like to continue shopping?"))
-        }).then((answer) => {
-            if (answer.newPurchase) {
+        }
+        ]).then (function (action) {
+            if (action.action === "Yes") {
                 openStore();
-            } else {
+            } else if (action.action === "No") {
                 console.log(color.magenta("\n\Thank you for your business. Have a great day!\n"));
                 connection.end();
+                process.exit(0);
             }
         });
     };

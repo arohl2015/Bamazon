@@ -25,7 +25,7 @@ connection.connect(function (error) {
     if (error) throw error;
     // Test console.log to check connection
     // console.log("connected as id " + connection.threadId + "\n");
-    console.log(color.whiteBright.bold("\n-----------------------------------------------------------------"
+    console.log(color.blueBright.bold("\n-----------------------------------------------------------------"
         + "\nWelcome to Bamazon!\n"
         + "-----------------------------------------------------------------\n"));
     // run the function below after the connection is made to make a choice to view products or exit
@@ -39,7 +39,7 @@ function openStore() {
             name: "action",
             type: "list",
             choices: ["View items for sale", "Leave Bamazon"],
-            message: "Please select what you would like to do:"
+            message: (color.whiteBright("Please select what you would like to do:"))
         }
     ]).then(function (action) {
         // if user wants to view products, run the showProducts function
@@ -71,7 +71,7 @@ function promptCustomer() {
         {
             name: "item_id",
             type: "input",
-            message: "Please enter the ID of the item that you would like to purchase:",
+            message: (color.blackBright("Please enter the ID of the item that you would like to purchase:")),
             validate: function (value) {
                 if (isNaN(value) === false) {
                     return true;
@@ -81,7 +81,7 @@ function promptCustomer() {
         },
         {
             name: "units",
-            message: "Please enter the quantity you would like to purchase:",
+            message: (color.blackBright("Please enter the quantity you would like to purchase:")),
             type: "input",
             validate: function (value) {
                 if (isNaN(value) === false) {
@@ -90,13 +90,14 @@ function promptCustomer() {
                 return false;
             }
         }
-        // check if your store has enough of the product to meet the customer's request.
-        //If not, the app should log a phrase like `Insufficient quantity!`,and then prevent the order from going through.
+        // Check if your store has enough of the product to meet the customer's request.
+        // If not, the app should log a phrase like `Insufficient quantity!`,and then prevent the order from going through.
+        // Added messaging if user types in id/quantity that doesn't exist
     ]).then(function (transact) {
         connection.query("SELECT stock_quantity, price FROM products where item_id = ?", transact.item_id, function (error, results) {
             if (error) throw error;
             if (results.length === 0) {
-                console.log("The item you entered does not exist. Please try again.");
+                console.log(color.red("The item you entered does not exist. Please try again."));
                 openStore();
             }
             else {
@@ -107,15 +108,15 @@ function promptCustomer() {
                 var price = results[0].price;
                 // console.log(quantity, price);
                 if (quantity > transact.units) {
-                    console.log("Thank you for your order! ")
+                    console.log(color.green("Thank you for your order!"));
                     connection.query("UPDATE products SET stock_quantity = ? where item_id = ?", [quantity - transact.units, transact.item_id], function (error, review) {
                         if (error) throw error;
                         // console.log(review);
-                        console.log("Your total is $" + price * transact.units);
+                        console.log(color.green("Your total is $" + price * transact.units));
                         newPurchase();
                     })
                 } else {
-                    console.log("Oh no! We don't have enough in stock to fulfull your order.");
+                    console.log(color.red("Oh no! We don't have enough in stock to fulfull your order."));
                     openStore();
                 };
 
@@ -131,12 +132,12 @@ function promptCustomer() {
             name: "action",
             type: "list",
             choices: ["Yes", "No"],
-            message: "Would you like to continue shopping?"
+            message: (color.cyan("Would you like to continue shopping?"))
         }).then((answer) => {
             if (answer.newPurchase) {
                 openStore();
             } else {
-                console.log('\n\Thank you for your business. Have a great day!\n');
+                console.log(color.magenta("\n\Thank you for your business. Have a great day!\n"));
                 connection.end();
             }
         });

@@ -52,7 +52,7 @@ module.exports = pwd;
 
 ![Default](/images/noinv.PNG)
 
-* Once a successful order has been placed, the user is prompted if they want to continue shopping. If they choose yes, they are brought back the beginning prompts and the inventory is updated:
+* Once a successful order has been placed, the user is prompted if they want to continue shopping. If they choose yes, they are brought back to the beginning prompts and the inventory is updated:
 
 ![Default](/images/continueshop.PNG)
 
@@ -67,6 +67,7 @@ module.exports = pwd;
 -	Node.js
 -	inquirer npm
 -	cli-color npm
+-   console.table npm
 
 ### Future Enhancements:
 

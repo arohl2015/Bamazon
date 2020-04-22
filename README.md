@@ -44,16 +44,30 @@ module.exports = pwd;
 
 ![Default](/images/orderconfirm.PNG)
 
-* If the user chooses no, the following message is displayed and ends the game:
+* If the user tries to order an item id that does not exist, the following message will display:
 
-![Default](/images/endgame.PNG)
+![Default](/images/notexist.PNG)
 
-* If the user guesses the word correctly, the following message will display and automatically show the next word to guess:
+* If the user tries to order more than what is available, they will see this message:
 
-![Default](/images/correctguess.PNG)
+![Default](/images/noinv.PNG)
+
+* Once a successful order has been placed, the user is prompted if they want to continue shopping. If they choose yes, they are brought back the beginning prompts and the inventory is updated:
+
+![Default](/images/continueshop.PNG)
+
+![Default](/images/updatedinv.PNG)
+
+* Last, if the user chooses not to continue shopping after they have placed an order, the app will thank the user for their business and end the connection:
+
+![Default](/images/shopno.PNG)
 
 ### Technologies Used:
 -	Javascript
 -	Node.js
 -	inquirer npm
 -	cli-color npm
+
+### Future Enhancements:
+
+In the future, I plan to update this app to also add Bamazon Manager and Supervisor functionality. This gives the manager the ability to view and add products/inventory, while the Supervisor function will provide sales numbers.
